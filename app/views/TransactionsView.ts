@@ -7,7 +7,7 @@ export class TransactionsView {
     this.parentElement = document.querySelector(parentElementSelector);
   }
 
-  template(transactions: Transactions): string {
+  private template(transactions: Transactions): string {
     return `
     <table class="table table-hover table-bordered">
       <thead>
