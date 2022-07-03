@@ -2,7 +2,7 @@ export abstract class View<T> {
   private elParentElement: HTMLElement;
 
   constructor(parentElementSelector: string) {
-    this.elParentElement = document.querySelector(parentElementSelector);
+    this.elParentElement = document.querySelector(parentElementSelector) as HTMLElement;
   }
 
   render(data: T): void {

@@ -14,7 +14,7 @@ export class TransactionController {
         this.transactionsView.render(this.transactions);
     }
     add() {
-        const transaction = this.create();
+        const transaction = Transaction.create(this.elDateInput.value, this.elAmountInput.value, this.elValueInput.value);
         if (this.isWeekend(transaction.date)) {
             this.messageView.render('Apenas transações em dias úteis são aceitas');
             return;
@@ -22,11 +22,6 @@ export class TransactionController {
         this.transactions.push(transaction);
         this.refreshView();
         this.resetForm();
-    }
-    create() {
-        const date = new Date(this.elDateInput.value.replace(/-/g, ','));
-        const transaction = new Transaction(date, parseInt(this.elAmountInput.value), parseFloat(this.elValueInput.value));
-        return transaction;
     }
     resetForm() {
         this.elDateInput.value = '';

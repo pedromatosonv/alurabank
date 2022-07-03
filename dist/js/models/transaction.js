@@ -11,4 +11,8 @@ export class Transaction {
     get volume() {
         return this.amount * this.value;
     }
+    static create(date, amount, value) {
+        const transaction = new Transaction(new Date(date.replace(/-/g, ',')), parseInt(amount), parseFloat(value));
+        return transaction;
+    }
 }
