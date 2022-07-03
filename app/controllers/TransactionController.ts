@@ -1,3 +1,4 @@
+import { WeekDays } from "../enums/WeekDays.js";
 import { Transaction } from "../models/Transaction.js";
 import { Transactions } from "../models/Transactions.js";
 import { MessageView } from "../views/MessageView.js";
@@ -20,6 +21,12 @@ export class TransactionController {
 
   add(): void {
     const transaction = this.create();
+
+    if (this.isWeekend(transaction.date)) {
+      this.messageView.render('Apenas transações em dias úteis são aceitas');
+      return;
+    }
+
     this.transactions.push(transaction);
     this.refreshView();
     this.resetForm();
@@ -47,5 +54,10 @@ export class TransactionController {
   private refreshView(): void {
     this.transactionsView.render(this.transactions);
     this.messageView.render('Negociação adicionada com sucesso!');
+  }
+
+  private isWeekend(date: Date): boolean {
+    const weekDay = date.getDay();
+    return weekDay === WeekDays.Sunday || weekDay === WeekDays.Saturday;
   }
 }

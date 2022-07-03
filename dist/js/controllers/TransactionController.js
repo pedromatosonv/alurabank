@@ -1,3 +1,4 @@
+import { WeekDays } from "../enums/WeekDays.js";
 import { Transaction } from "../models/Transaction.js";
 import { Transactions } from "../models/Transactions.js";
 import { MessageView } from "../views/MessageView.js";
@@ -14,9 +15,12 @@ export class TransactionController {
     }
     add() {
         const transaction = this.create();
+        if (this.isWeekend(transaction.date)) {
+            this.messageView.render('Apenas transações em dias úteis são aceitas');
+            return;
+        }
         this.transactions.push(transaction);
-        this.transactionsView.render(this.transactions);
-        this.messageView.render('Negociação adicionada com sucesso!');
+        this.refreshView();
         this.resetForm();
     }
     create() {
@@ -29,5 +33,13 @@ export class TransactionController {
         this.elAmountInput.value = '';
         this.elValueInput.value = '';
         this.elDateInput.focus();
+    }
+    refreshView() {
+        this.transactionsView.render(this.transactions);
+        this.messageView.render('Negociação adicionada com sucesso!');
+    }
+    isWeekend(date) {
+        const weekDay = date.getDay();
+        return weekDay === WeekDays.Sunday || weekDay === WeekDays.Saturday;
     }
 }
