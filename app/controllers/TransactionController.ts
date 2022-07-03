@@ -1,8 +1,10 @@
 import { Transaction } from "../models/Transaction.js";
 import { Transactions } from "../models/Transactions.js";
+import { TransactionsView } from "../views/TransactionsView.js";
 
 export class TransactionController {
   private transactions = new Transactions;
+  private transactionsView = new TransactionsView('#transactionsView');
   private elDateInput: HTMLInputElement;
   private elAmountInput: HTMLInputElement;
   private elValueInput: HTMLInputElement;
@@ -11,11 +13,13 @@ export class TransactionController {
     this.elDateInput = document.querySelector('#data');
     this.elAmountInput = document.querySelector('#quantidade');
     this.elValueInput = document.querySelector('#valor');
+    this.transactionsView.render(this.transactions);
   }
 
   add(): void {
     const transaction = this.create();
     this.transactions.push(transaction);
+    this.transactionsView.render(this.transactions);
     this.resetForm();
   }
 
