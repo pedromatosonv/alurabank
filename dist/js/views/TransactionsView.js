@@ -1,33 +1,30 @@
-export class TransactionsView {
-    constructor(parentElementSelector) {
-        this.parentElement = document.querySelector(parentElementSelector);
-    }
+import { View } from "./View.js";
+export class TransactionsView extends View {
     template(transactions) {
         return `
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th>DATA</th>
-          <th>QUANTIDADE</th>
-          <th>VALOR</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${transactions.all().map(transaction => {
-            return `
+      <table class="table table-hover table-bordered">
+        <thead>
           <tr>
-            <td>${new Intl.DateTimeFormat().format(transaction.date)}</td>
-            <td>${transaction.amount}</td>
-            <td>${transaction.value}</td>
+            <th>DATA</th>
+            <th>QUANTIDADE</th>
+            <th>VALOR</th>
           </tr>
-          `;
+        </thead>
+        <tbody>
+          ${transactions.all().map(transaction => {
+            return `
+            <tr>
+              <td>${this.formatDate(transaction.date)}</td>
+              <td>${transaction.amount}</td>
+              <td>${transaction.value}</td>
+            </tr>
+            `;
         }).join('')}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
     `;
     }
-    render(transactions) {
-        const template = this.template(transactions);
-        this.parentElement.innerHTML = template;
+    formatDate(date) {
+        return new Intl.DateTimeFormat().format(date);
     }
 }

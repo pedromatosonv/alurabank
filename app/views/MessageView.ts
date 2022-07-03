@@ -1,20 +1,12 @@
-export class MessageView {
-  private parentElement: HTMLElement;
+import { View } from "./View.js";
 
-  constructor(parentElementSelector: string) {
-    this.parentElement = document.querySelector(parentElementSelector);
-  }
+export class MessageView extends View<string> {
 
-  private template(message: string): string {
+  protected template(message: string): string {
     return `
       <div class="alert alert-success" role="alert">
         ${message}
       </div>
     `;
-  }
-
-  render(message: string): void {
-    const template = this.template(message);
-    this.parentElement.innerHTML = template;
   }
 }
