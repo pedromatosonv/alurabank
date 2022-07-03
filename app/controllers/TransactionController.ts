@@ -1,6 +1,7 @@
 import { WeekDays } from "../enums/WeekDays.js";
 import { Transaction } from "../models/Transaction.js";
 import { Transactions } from "../models/Transactions.js";
+import { TransactionsService } from "../services/TransactionsService.js";
 import { MessageView } from "../views/MessageView.js";
 import { TransactionsView } from "../views/TransactionsView.js";
 
@@ -8,6 +9,7 @@ export class TransactionController {
   private transactions = new Transactions;
   private transactionsView = new TransactionsView('#transactionsView');
   private messageView = new MessageView('#messageView');
+  private transactionsService = new TransactionsService;
   private elDateInput: HTMLInputElement;
   private elAmountInput: HTMLInputElement;
   private elValueInput: HTMLInputElement;
@@ -34,6 +36,17 @@ export class TransactionController {
     this.transactions.push(transaction);
     this.refreshView();
     this.resetForm();
+  }
+
+  import(): void {
+    this.transactionsService
+      .getTransactions()
+      .then(transactions => {
+        for (let transaction of transactions) {
+          this.transactions.push(transaction);
+        }
+        this.transactionsView.render(this.transactions);
+      })
   }
 
   private resetForm(): void {

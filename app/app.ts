@@ -11,3 +11,13 @@ form.addEventListener('submit', (event) => {
   event.preventDefault();
   transactionController.add();
 })
+
+const importBtn = document.querySelector('#importBtn');
+
+if (!importBtn) {
+  throw new Error('Import button was not found!');
+}
+
+importBtn.addEventListener('click', () => {
+  transactionController.import();
+})
