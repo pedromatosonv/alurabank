@@ -21,8 +21,7 @@ export class TransactionController {
   add(): void {
     const transaction = this.create();
     this.transactions.push(transaction);
-    this.transactionsView.render(this.transactions);
-    this.messageView.render('Negociação adicionada com sucesso!');
+    this.refreshView();
     this.resetForm();
   }
 
@@ -43,5 +42,10 @@ export class TransactionController {
     this.elAmountInput.value = '';
     this.elValueInput.value = '';
     this.elDateInput.focus();
+  }
+
+  private refreshView(): void {
+    this.transactionsView.render(this.transactions);
+    this.messageView.render('Negociação adicionada com sucesso!');
   }
 }
