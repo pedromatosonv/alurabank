@@ -2,6 +2,7 @@ import { WeekDays } from "../enums/WeekDays.js";
 import { Transaction } from "../models/Transaction.js";
 import { Transactions } from "../models/Transactions.js";
 import { TransactionsService } from "../services/TransactionsService.js";
+import { print } from "../utils/print.js";
 import { MessageView } from "../views/MessageView.js";
 import { TransactionsView } from "../views/TransactionsView.js";
 export class TransactionController {
@@ -24,6 +25,7 @@ export class TransactionController {
         this.transactions.push(transaction);
         this.refreshView();
         this.resetForm();
+        print(transaction, this.transactions.all());
     }
     import() {
         this.transactionsService

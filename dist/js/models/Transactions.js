@@ -8,4 +8,7 @@ export class Transactions {
     all() {
         return this.transactions;
     }
+    toString() {
+        return JSON.stringify(this.transactions, null, 2);
+    }
 }

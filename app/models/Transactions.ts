@@ -1,6 +1,7 @@
+import { Printable } from "../interfaces/Printable.js";
 import { Transaction } from "./Transaction.js";
 
-export class Transactions {
+export class Transactions implements Printable {
   private transactions: Transaction[] = [];
 
   push(transaction: Transaction): void {
@@ -9,5 +10,9 @@ export class Transactions {
 
   all(): readonly Transaction[] {
     return this.transactions;
+  }
+
+  toString(): string {
+      return JSON.stringify(this.transactions, null, 2);
   }
 }

@@ -1,4 +1,6 @@
-export class Transaction {
+import { Printable } from "../interfaces/Printable.js";
+
+export class Transaction implements Printable {
   constructor(
     private _date: Date,
     public readonly amount: number,
@@ -12,6 +14,14 @@ export class Transaction {
 
   get volume(): number {
     return this.amount * this.value;
+  }
+
+  public toString(): string {
+    return `
+      Data: ${this.date}
+      Quantidade: ${this.amount}
+      Valor: ${this.value}
+    `;
   }
 
   static create(date: string, amount: string, value: string): Transaction {
